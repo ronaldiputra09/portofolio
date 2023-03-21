@@ -28,6 +28,11 @@
                         <i class="ri-dashboard-2-line"></i> <span data-key="t-widgets">Dashboard</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('admin.category') }}">
+                        <i class="ri-layout-grid-fill"></i> <span data-key="t-widgets">Kategori</span>
+                    </a>
+                </li>
                 <li class="menu-title"><span data-key="t-menu">Pengaturan</span></li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button"

@@ -19,5 +19,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', Dashboard::class)->name('admin.dashboard');
-Route::get('/login', Login::class)->name('admin.login');
+Route::get('/login', Login::class)->name('admin.login')->middleware('guest');
+
+// create group route with middleware auth
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', Dashboard::class)->name('admin.dashboard');
+    Route::get('/category', \App\Http\Livewire\Admin\Category\Index::class)->name('admin.category');
+});
