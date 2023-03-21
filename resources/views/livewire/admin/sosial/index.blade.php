@@ -1,5 +1,5 @@
 @push('title')
-    Kategori
+    Sosial Media
 @endpush
 
 <div>
@@ -7,7 +7,7 @@
         <div class="col-xl-8">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0 flex-grow-1">Data Kategori</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">Data Sosial Media</h4>
                 </div>
                 <div class="card-body p-4">
                     <div class="table-responsive table-card table-bordered">
@@ -15,8 +15,9 @@
                             <thead class="table-light">
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">Nama kategori</th>
-                                    <th scope="col">Slug kategori</th>
+                                    <th scope="col">Nama</th>
+                                    <th scope="col">Link</th>
+                                    <th scope="col">Icon</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -25,26 +26,29 @@
                                 @php
                                     $no = 0;
                                 @endphp
-                                @forelse ($categories as $key => $category)
+                                @forelse ($sosials as $key => $sosial)
                                     <tr>
-                                        <td>{{ $categories->firstItem() + $key }}</td>
+                                        <td>{{ $sosials->firstItem() + $key }}</td>
                                         </td>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->slug }}</td>
-                                        @if ($category->status == 'active')
-                                            <td><a href="#" wire:click='changeStatus({{ $category->id }})'><span
-                                                        class="badge bg-success">{{ $category->status }}</span>
+                                        <td>{{ $sosial->name }}</td>
+                                        <td>{{ $sosial->link }}</td>
+                                        <td><img src="{{ $sosial->icon }}" alt="icon"
+                                                class="avatar-xs rounded-circle">
+                                        </td>
+                                        @if ($sosial->status == 'active')
+                                            <td><a href="#" wire:click='changeStatus({{ $sosial->id }})'><span
+                                                        class="badge bg-success">{{ $sosial->status }}</span>
                                                 </a>
                                             </td>
                                         @else
-                                            <td><a href="#" wire:click='changeStatus({{ $category->id }})'><span
-                                                        class="badge bg-danger">{{ $category->status }}</span>
+                                            <td><a href="#" wire:click='changeStatus({{ $sosial->id }})'><span
+                                                        class="badge bg-danger">{{ $sosial->status }}</span>
                                                 </a>
                                             </td>
                                         @endif
                                         <td>
                                             <div class="hstack gap-3 flex-wrap">
-                                                <a wire:click='editCategory({{ $category->id }})' href="#"
+                                                <a wire:click='editSosial({{ $sosial->id }})' href="#"
                                                     class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
                                                 <a href="#" data-bs-toggle="modal" data-bs-target=".konfirmasi"
                                                     class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
@@ -69,7 +73,7 @@
                                                                         <button type="button" class="btn btn-light"
                                                                             data-bs-dismiss="modal">Batal</button>
                                                                         <button
-                                                                            wire:click='deleteCategory({{ $category->id }})'
+                                                                            wire:click='deleteSosial({{ $sosial->id }})'
                                                                             type="button" class="btn btn-danger"
                                                                             data-bs-dismiss="modal"
                                                                             @if (session()->has('success')) data-bs-dismiss="modal" @endif>
@@ -95,7 +99,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    {{ $categories->links() }}
+                    {{ $sosials->links() }}
                 </div>
             </div>
         </div>
@@ -117,15 +121,41 @@
             @endif
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title mb-0 flex-grow-1">{{ $editId ? 'Edit' : 'Tambah' }} Kategori</h4>
+                    <h4 class="card-title mb-0 flex-grow-1">{{ $editId ? 'Edit' : 'Tambah' }} Sosial Media</h4>
                 </div>
                 <div class="card-body p-4">
-                    <form wire:submit.prevent="{{ $editId ? 'updateCategory' : 'addCategory' }}">
+                    <form wire:submit.prevent="{{ $editId ? 'updateSosial' : 'addSosial' }}">
                         <div class="mb-3">
-                            <label for="name" class="form-label">Nama Kategori</label>
+                            <label for="name" class="form-label">Nama Sosial Media</label>
                             <input type="text" class="form-control" id="name" placeholder="Nama Kategori"
-                                wire:model="name">
+                                wire:model.lazy="name">
                             @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Link</label>
+                            <input type="text" class="form-control" id="name" placeholder="Masukan Link"
+                                wire:model.lazy="link">
+                            @error('link')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Link Icon</label>
+                            <div class="input-group has-validation">
+                                <span class="input-group-text">
+                                    @if ($icon)
+                                        <img src="{{ $icon }}" alt="icon"
+                                            class="avatar-xs rounded-circle" style="width: 15px; height: 15px;">
+                                    @else
+                                        <i class="ri-image-line"></i>
+                                    @endif
+                                </span>
+                                <input wire:model='icon' type="text" class="form-control"
+                                    aria-describedby="inputGroupPrepend" placeholder="Link Icon">
+                            </div>
+                            @error('icon')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -133,12 +163,12 @@
                             wire:loading.attr='disabled'>{{ $editId ? 'Update' : 'Simpan' }}</button>
                         @if ($editId)
                             <hr class="my-2">
-                            <a wire:click='clearData' href="#" class="btn btn-danger w-100">Cancel</a>
+                            <a wire:click='resetInput' href="#" class="btn btn-danger w-100">Cancel</a>
                         @endif
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
-
 </div>

@@ -30,7 +30,17 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="{{ route('admin.category') }}">
-                        <i class="ri-layout-grid-fill"></i> <span data-key="t-widgets">Kategori</span>
+                        <i class="ri-apps-2-line"></i> <span data-key="t-widgets">Kategori</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('admin.tool') }}">
+                        <i class=" ri-code-box-line"></i> <span data-key="t-widgets">Tools & Framework</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ route('admin.sosial') }}">
+                        <i class="ri-account-pin-circle-line"></i> <span data-key="t-widgets">Social Media</span>
                     </a>
                 </li>
                 <li class="menu-title"><span data-key="t-menu">Pengaturan</span></li>

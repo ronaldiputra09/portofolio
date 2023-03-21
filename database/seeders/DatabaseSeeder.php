@@ -20,5 +20,11 @@ class DatabaseSeeder extends Seeder
             'avatar' => 'https://avatars.githubusercontent.com/u/1?v=4',
             'email' => 'test@example.com',
         ]);
+
+        $this->call([
+            CategorySeeder::class,
+            ToolSeeder::class,
+            SosialSeeder::class,
+        ]);
     }
 }

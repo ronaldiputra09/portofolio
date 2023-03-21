@@ -25,4 +25,6 @@ Route::get('/login', Login::class)->name('admin.login')->middleware('guest');
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', Dashboard::class)->name('admin.dashboard');
     Route::get('/category', \App\Http\Livewire\Admin\Category\Index::class)->name('admin.category');
+    Route::get('/tool', \App\Http\Livewire\Admin\Tool\Index::class)->name('admin.tool');
+    Route::get('/sosial', \App\Http\Livewire\Admin\Sosial\Index::class)->name('admin.sosial');
 });
