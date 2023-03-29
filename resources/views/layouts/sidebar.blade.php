@@ -43,20 +43,10 @@
                         <i class="ri-account-pin-circle-line"></i> <span data-key="t-widgets">Social Media</span>
                     </a>
                 </li>
-                <li class="menu-title"><span data-key="t-menu">Pengaturan</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarLanding" data-bs-toggle="collapse" role="button"
-                        aria-expanded="false" aria-controls="sidebarLanding">
-                        <i class="ri-rocket-line"></i> <span data-key="t-landing">Landing</span>
+                    <a class="nav-link menu-link" href="{{ route('admin.about') }}">
+                        <i class=" ri-account-circle-line"></i> <span data-key="t-widgets">Tentang Saya</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarLanding">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="landing.html" class="nav-link" data-key="t-one-page"> One Page
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
             </ul>
         </div>
